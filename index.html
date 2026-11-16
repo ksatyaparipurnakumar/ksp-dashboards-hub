@@ -7,133 +7,247 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;padding:1.5rem}
+.wrap{max-width:760px;margin:0 auto}
 h1{text-align:center;font-size:1.5rem;margin-bottom:.5rem;color:#38bdf8}
-.sub{text-align:center;font-size:.85rem;color:#64748b;margin-bottom:2rem}
+.sub{text-align:center;font-size:.85rem;color:#64748b;margin-bottom:1.25rem}
+.search{display:block;width:100%;padding:.7rem 1rem;margin-bottom:1.75rem;border-radius:10px;border:1px solid #334155;background:#1e293b;color:#f1f5f9;font-size:.95rem}
+.search:focus{outline:none;border-color:#38bdf8}
 .section{margin-bottom:1.5rem}
 .section-title{font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:#64748b;margin-bottom:.75rem;padding-left:.5rem}
+.section-title span{color:#475569}
+.note{font-size:.72rem;color:#64748b;margin:-.4rem 0 .75rem .5rem}
 .card{display:block;text-decoration:none;background:#1e293b;border-radius:12px;padding:1rem 1.25rem;margin-bottom:8px;border:1px solid #334155;transition:all .2s}
 .card:hover{background:#334155;border-color:#38bdf8;transform:translateY(-1px)}
 .card-name{font-size:1rem;font-weight:600;color:#f1f5f9}
+.card-desc{font-size:.8rem;color:#94a3b8;margin-top:4px}
 .card-url{font-size:.75rem;color:#38bdf8;margin-top:4px;word-break:break-all}
 .card-badge{display:inline-block;font-size:.65rem;padding:2px 8px;border-radius:20px;margin-left:8px;vertical-align:middle}
 .badge-live{background:#065f46;color:#6ee7b7}
+.badge-new{background:#7f1d1d;color:#fca5a5}
 .badge-protected{background:#78350f;color:#fbbf24}
 .badge-streamlit{background:#312e81;color:#a5b4fc}
+.badge-claude{background:#3b2f1e;color:#f5c08a}
+.empty{display:none;text-align:center;color:#64748b;font-size:.85rem;margin:1rem 0}
 .footer{text-align:center;font-size:.7rem;color:#475569;margin-top:2rem;padding-top:1rem;border-top:1px solid #1e293b}
 </style>
 </head>
 <body>
+<div class="wrap">
 <h1>Er. K.S.P. Kumar's Dashboards</h1>
-<p class="sub">Tap any card to open • Works on mobile & desktop</p>
+<p class="sub">Tap any card to open • Works on mobile &amp; desktop</p>
+<input class="search" id="q" type="search" placeholder="Search dashboards…" aria-label="Search dashboards">
 
 <div class="section">
-<div class="section-title">Professional</div>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/apepdcl-operations-cockpit/" target="_blank">
-  <span class="card-name">APEPDCL Operations Cockpit<span class="card-badge badge-live">Live</span></span>
-  <div class="card-url">ksatyaparipurnakumar.github.io/apepdcl-operations-cockpit</div>
-</a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/ee-cockpit/" target="_blank">
-  <span class="card-name">EE Cockpit<span class="card-badge badge-live">Live</span></span>
-  <div class="card-url">ksatyaparipurnakumar.github.io/ee-cockpit</div>
-</a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/aperc-tariff-hub/" target="_blank">
-  <span class="card-name">APERC Tariff Hub<span class="card-badge badge-live">Live</span></span>
-  <div class="card-url">ksatyaparipurnakumar.github.io/aperc-tariff-hub</div>
-</a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/ct-meters-dashboard/" target="_blank">
-  <span class="card-name">CT Meters Dashboard<span class="card-badge badge-live">Live</span></span>
-  <div class="card-url">ksatyaparipurnakumar.github.io/ct-meters-dashboard</div>
-</a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/ksp-ht-metering-dashboard/?v=4" target="_blank">
-  <span class="card-name">KSP HT Metering Dashboard<span class="card-badge badge-live">Live</span></span>
-  <div class="card-url">ksatyaparipurnakumar.github.io/ksp-ht-metering-dashboard</div>
-</a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/33-11kv-substation-epc/" target="_blank">
-  <span class="card-name">33/11 kV Substation EPC<span class="card-badge badge-live">Live</span></span>
-  <div class="card-url">ksatyaparipurnakumar.github.io/33-11kv-substation-epc</div>
-</a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/Engineers-Seniority-Dashboard/" target="_blank">
-  <span class="card-name">Engineers Seniority Dashboard<span class="card-badge badge-live">Live</span></span>
+<div class="section-title">Professional — APEPDCL <span>(11)</span></div>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/Engineers-Seniority-Dashboard/" target="_blank" rel="noopener">
+  <span class="card-name">Engineers Seniority Dashboard<span class="card-badge badge-live">Live</span><span class="card-badge badge-new">Updated Nov 2026</span></span>
+  <div class="card-desc">APEPDCL engineers seniority, retirement &amp; promotion forecast</div>
   <div class="card-url">ksatyaparipurnakumar.github.io/Engineers-Seniority-Dashboard</div>
 </a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/professional-journey/" target="_blank">
-  <span class="card-name">Professional Journey & KPI<span class="card-badge badge-protected">Password</span></span>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/eht-digital-summator-dashboard/" target="_blank" rel="noopener">
+  <span class="card-name">EHT Digital Summator Dashboard<span class="card-badge badge-live">Live</span><span class="card-badge badge-new">New</span></span>
+  <div class="card-desc">Multi-feeder digital summation metering — APTRANSCO / CPRI validation</div>
+  <div class="card-url">ksatyaparipurnakumar.github.io/eht-digital-summator-dashboard</div>
+</a>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/apepdcl-operations-cockpit/" target="_blank" rel="noopener">
+  <span class="card-name">APEPDCL Operations Cockpit<span class="card-badge badge-live">Live</span></span>
+  <div class="card-desc">SAP Utility Operations Cockpit</div>
+  <div class="card-url">ksatyaparipurnakumar.github.io/apepdcl-operations-cockpit</div>
+</a>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/ee-cockpit/" target="_blank" rel="noopener">
+  <span class="card-name">EE Cockpit<span class="card-badge badge-live">Live</span></span>
+  <div class="card-desc">Executive Engineer Command, Training &amp; Decision Platform</div>
+  <div class="card-url">ksatyaparipurnakumar.github.io/ee-cockpit</div>
+</a>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/ct-meters-dashboard/" target="_blank" rel="noopener">
+  <span class="card-name">CT Meters Testing Dashboard<span class="card-badge badge-live">Live</span></span>
+  <div class="card-desc">APEPDCL Vizianagaram — periodical testing calendar</div>
+  <div class="card-url">ksatyaparipurnakumar.github.io/ct-meters-dashboard</div>
+</a>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/ksp-ht-metering-dashboard/?v=4" target="_blank" rel="noopener">
+  <span class="card-name">KSP HT Metering Dashboard<span class="card-badge badge-live">Live</span></span>
+  <div class="card-desc">Unified Engineering Dashboard</div>
+  <div class="card-url">ksatyaparipurnakumar.github.io/ksp-ht-metering-dashboard</div>
+</a>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/smart-metering-training/" target="_blank" rel="noopener">
+  <span class="card-name">Smart Metering Training (RDSS)<span class="card-badge badge-live">Live</span><span class="card-badge badge-new">New</span></span>
+  <div class="card-desc">5-day RDSS programme — study material, decks, videos, interactive instruments</div>
+  <div class="card-url">ksatyaparipurnakumar.github.io/smart-metering-training</div>
+</a>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/smart-metering-handbook-/" target="_blank" rel="noopener">
+  <span class="card-name">Smart Metering Handbook<span class="card-badge badge-live">Live</span></span>
+  <div class="card-desc">Smart Metering under RDSS — Participant Handbook</div>
+  <div class="card-url">ksatyaparipurnakumar.github.io/smart-metering-handbook-</div>
+</a>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/aperc-tariff-hub/" target="_blank" rel="noopener">
+  <span class="card-name">APERC Tariff Hub<span class="card-badge badge-live">Live</span></span>
+  <div class="card-desc">v12 — FY 2026-27</div>
+  <div class="card-url">ksatyaparipurnakumar.github.io/aperc-tariff-hub</div>
+</a>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/33-11kv-substation-epc/" target="_blank" rel="noopener">
+  <span class="card-name">33/11 kV Substation EPC<span class="card-badge badge-live">Live</span></span>
+  <div class="card-desc">Substation EPC project dashboard</div>
+  <div class="card-url">ksatyaparipurnakumar.github.io/33-11kv-substation-epc</div>
+</a>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/professional-journey/" target="_blank" rel="noopener">
+  <span class="card-name">Professional Journey &amp; KPI<span class="card-badge badge-protected">Password</span></span>
+  <div class="card-desc">Career record and KPIs</div>
   <div class="card-url">ksatyaparipurnakumar.github.io/professional-journey</div>
 </a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/smart-metering-handbook-/" target="_blank">
-  <span class="card-name">Smart Metering Handbook<span class="card-badge badge-live">Live</span></span>
-  <div class="card-url">ksatyaparipurnakumar.github.io/smart-metering-handbook</div>
+</div>
+
+<div class="section">
+<div class="section-title">Professional — Claude Workspace <span>(6)</span></div>
+<p class="note">Opens in Claude — visible only when signed in to Er. K.S.P. Kumar's account.</p>
+<a class="card" href="https://claude.ai/artifact/FHTtmuCVWBSKQvgoMNtjhi" target="_blank" rel="noopener">
+  <span class="card-name">Engineers Seniority Dashboard (Claude)<span class="card-badge badge-claude">Claude</span></span>
+  <div class="card-desc">Seniority, retirement &amp; promotion forecast — 277 engineers, data as on 20-09-2026</div>
+  <div class="card-url">claude.ai/artifact/FHTtmuCVWBSKQvgoMNtjhi</div>
 </a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/gym-equipment-dashboard/" target="_blank">
-    <span class="card-name">Gym Equipment Dashboard<span class="card-badge badge-live">Live</span></span>
-    <div class="card-url">ksatyaparipurnakumar.github.io/gym-equipment-dashboard</div>
+<a class="card" href="https://claude.ai/artifact/4Tu9wMFZdDrKeqAp9aWsgQ" target="_blank" rel="noopener">
+  <span class="card-name">EHT Digital Summator Dashboard (Claude)<span class="card-badge badge-claude">Claude</span><span class="card-badge badge-new">New</span></span>
+  <div class="card-desc">Working copy of the digital summation dashboard</div>
+  <div class="card-url">claude.ai/artifact/4Tu9wMFZdDrKeqAp9aWsgQ</div>
+</a>
+<a class="card" href="https://claude.ai/artifact/9yEcZEKHpryDowQEoj2fc6" target="_blank" rel="noopener">
+  <span class="card-name">Digital Summation Metering — Technical Notes<span class="card-badge badge-claude">Claude</span><span class="card-badge badge-new">New</span></span>
+  <div class="card-desc">Technical notes on multi-feeder digital summation metering</div>
+  <div class="card-url">claude.ai/artifact/9yEcZEKHpryDowQEoj2fc6</div>
+</a>
+<a class="card" href="https://claude.ai/artifact/GKMirCBsfTWNLpP2ALiKGa" target="_blank" rel="noopener">
+  <span class="card-name">Meters Pending Report – Visual Insights<span class="card-badge badge-claude">Claude</span></span>
+  <div class="card-desc">3-Ph (CT) meters pending — Vizianagaram Circle, 30-09-2026</div>
+  <div class="card-url">claude.ai/artifact/GKMirCBsfTWNLpP2ALiKGa</div>
+</a>
+<a class="card" href="https://claude.ai/artifact/NPVL1K8236UT7xRvgfGPCu" target="_blank" rel="noopener">
+  <span class="card-name">Project Punarjyothi – Cyclone Arnab Restoration Plan<span class="card-badge badge-claude">Claude</span></span>
+  <div class="card-desc">Power restoration plan, Sakhinetipalli Mandal</div>
+  <div class="card-url">claude.ai/artifact/NPVL1K8236UT7xRvgfGPCu</div>
+</a>
+<a class="card" href="https://claude.ai/artifact/3xsVnEGeccoNsUarNvjKow" target="_blank" rel="noopener">
+  <span class="card-name">Cyclone Preparedness Action Taken Report<span class="card-badge badge-claude">Claude</span></span>
+  <div class="card-desc">Operation Circle Vizianagaram</div>
+  <div class="card-url">claude.ai/artifact/3xsVnEGeccoNsUarNvjKow</div>
 </a>
 </div>
 
 <div class="section">
-<div class="section-title">Legal & Service Matters</div>
-<a class="card" href="https://claude.ai/artifact/8wNXVmvEsjnibYkwAJWez3" target="_blank">
-  <span class="card-name">EPF to GPF – Case Dossier<span class="card-badge badge-protected">Private</span></span>
-  <div class="card-url">claude.ai/artifact/8wNXVmvEsjnibYkwAJWez3</div>
-</a>
-<a class="card" href="https://claude.ai/artifact/SekH8kT45Du9Nn7PRAKsEH" target="_blank">
-  <span class="card-name">EPF to GPF – Brief to Counsel<span class="card-badge badge-protected">Private</span></span>
-  <div class="card-url">claude.ai/artifact/SekH8kT45Du9Nn7PRAKsEH</div>
-</a>
-<a class="card" href="https://claude.ai/artifact/3zBhzBbpdReENZhwbg92Gb" target="_blank">
-  <span class="card-name">EPF to GPF – Draft Writ Affidavit<span class="card-badge badge-protected">Private</span></span>
+<div class="section-title">Legal &amp; Service Matters <span>(7)</span></div>
+<p class="note">Opens in Claude — visible only when signed in to Er. K.S.P. Kumar's account.</p>
+<a class="card" href="https://claude.ai/artifact/3zBhzBbpdReENZhwbg92Gb" target="_blank" rel="noopener">
+  <span class="card-name">EPF to GPF – Draft Writ Affidavit<span class="card-badge badge-protected">Private</span><span class="card-badge badge-new">Updated 16 Nov</span></span>
+  <div class="card-desc">Draft affidavit for the writ petition</div>
   <div class="card-url">claude.ai/artifact/3zBhzBbpdReENZhwbg92Gb</div>
 </a>
+<a class="card" href="https://claude.ai/artifact/SekH8kT45Du9Nn7PRAKsEH" target="_blank" rel="noopener">
+  <span class="card-name">EPF to GPF – Brief to Counsel<span class="card-badge badge-protected">Private</span><span class="card-badge badge-new">Updated 16 Nov</span></span>
+  <div class="card-desc">Brief for the advocate</div>
+  <div class="card-url">claude.ai/artifact/SekH8kT45Du9Nn7PRAKsEH</div>
+</a>
+<a class="card" href="https://claude.ai/artifact/8wNXVmvEsjnibYkwAJWez3" target="_blank" rel="noopener">
+  <span class="card-name">EPF to GPF – Case Dossier<span class="card-badge badge-protected">Private</span></span>
+  <div class="card-desc">APSEB AE Notification dt. 18-06-1997 — dossier for the advocate</div>
+  <div class="card-url">claude.ai/artifact/8wNXVmvEsjnibYkwAJWez3</div>
+</a>
+<a class="card" href="https://claude.ai/artifact/9QomGHeEKsY9Ee9ZpWXSFY" target="_blank" rel="noopener">
+  <span class="card-name">Restoring Seniority – Questions for HRD<span class="card-badge badge-protected">Private</span></span>
+  <div class="card-desc">Double punishment, natural justice and the questions for HRD</div>
+  <div class="card-url">claude.ai/artifact/9QomGHeEKsY9Ee9ZpWXSFY</div>
+</a>
+<a class="card" href="https://claude.ai/artifact/4Qs6Z52AUfd93Lmagu6Qi4" target="_blank" rel="noopener">
+  <span class="card-name">Seniority – Reg 3(B) v 3(C), Reg 26<span class="card-badge badge-protected">Private</span></span>
+  <div class="card-desc">Regulation analysis and the double-punishment answer</div>
+  <div class="card-url">claude.ai/artifact/4Qs6Z52AUfd93Lmagu6Qi4</div>
+</a>
+<a class="card" href="https://claude.ai/artifact/WVi1UCj7LVoahc2vF8Tbrg" target="_blank" rel="noopener">
+  <span class="card-name">Seniority Rule Flowchart<span class="card-badge badge-protected">Private</span></span>
+  <div class="card-desc">How APSEB Regulation 3 and 26 fix seniority — Dy.EE (Electrical) example</div>
+  <div class="card-url">claude.ai/artifact/WVi1UCj7LVoahc2vF8Tbrg</div>
+</a>
+<a class="card" href="https://claude.ai/artifact/DKcnuCpNke5ekV6m6EaLUy" target="_blank" rel="noopener">
+  <span class="card-name">SVN Nagar Park – Temples: Legal Position<span class="card-badge badge-protected">Private</span></span>
+  <div class="card-desc">Legal position and notices</div>
+  <div class="card-url">claude.ai/artifact/DKcnuCpNke5ekV6m6EaLUy</div>
+</a>
 </div>
 
 <div class="section">
-<div class="section-title">Personal & Family</div>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/dads-memorial/" target="_blank">
+<div class="section-title">Personal &amp; Family <span>(4)</span></div>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/dads-memorial/" target="_blank" rel="noopener">
   <span class="card-name">Dad's Memorial<span class="card-badge badge-live">Live</span></span>
+  <div class="card-desc">In Loving Memory — Dad</div>
   <div class="card-url">ksatyaparipurnakumar.github.io/dads-memorial</div>
 </a>
-<a class="card" href="https://vrindavihari.streamlit.app/" target="_blank">
+<a class="card" href="https://vrindavihari.streamlit.app/" target="_blank" rel="noopener">
   <span class="card-name">Family Vault<span class="card-badge badge-streamlit">Streamlit</span></span>
+  <div class="card-desc">Family records app</div>
   <div class="card-url">vrindavihari.streamlit.app</div>
 </a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/travel-vlog/" target="_blank">
+<a class="card" href="https://ksatyaparipurnakumar.github.io/travel-vlog/" target="_blank" rel="noopener">
   <span class="card-name">Travel Vlog<span class="card-badge badge-live">Live</span></span>
+  <div class="card-desc">Editable travel archive</div>
   <div class="card-url">ksatyaparipurnakumar.github.io/travel-vlog</div>
 </a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/house-details-dashboard/" target="_blank">
+<a class="card" href="https://ksatyaparipurnakumar.github.io/house-details-dashboard/" target="_blank" rel="noopener">
   <span class="card-name">House Details<span class="card-badge badge-live">Live</span></span>
+  <div class="card-desc">Media dashboard</div>
   <div class="card-url">ksatyaparipurnakumar.github.io/house-details-dashboard</div>
 </a>
 </div>
 
 <div class="section">
-<div class="section-title">Health & Fitness</div>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/gymiq-fitness-academy/" target="_blank">
+<div class="section-title">Health &amp; Fitness <span>(2)</span></div>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/gymiq-fitness-academy/" target="_blank" rel="noopener">
   <span class="card-name">GymIQ Fitness Academy<span class="card-badge badge-live">Live</span></span>
+  <div class="card-desc">Fitness Transformation Academy</div>
   <div class="card-url">ksatyaparipurnakumar.github.io/gymiq-fitness-academy</div>
+</a>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/gym-equipment-dashboard/" target="_blank" rel="noopener">
+  <span class="card-name">Gym Equipment Dashboard<span class="card-badge badge-live">Live</span></span>
+  <div class="card-desc">Gym equipment guide (GymIQ)</div>
+  <div class="card-url">ksatyaparipurnakumar.github.io/gym-equipment-dashboard</div>
 </a>
 </div>
 
 <div class="section">
-<div class="section-title">Private (Password Protected)</div>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/health-dashboard/" target="_blank">
+<div class="section-title">Private (Password Protected) <span>(4)</span></div>
+<a class="card" href="https://ksatyaparipurnakumar.github.io/health-dashboard/" target="_blank" rel="noopener">
   <span class="card-name">Health Dashboard<span class="card-badge badge-protected">Password</span></span>
   <div class="card-url">ksatyaparipurnakumar.github.io/health-dashboard</div>
 </a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/finance-cockpit/" target="_blank">
+<a class="card" href="https://ksatyaparipurnakumar.github.io/finance-cockpit/" target="_blank" rel="noopener">
   <span class="card-name">Finance Cockpit<span class="card-badge badge-protected">Password</span></span>
   <div class="card-url">ksatyaparipurnakumar.github.io/finance-cockpit</div>
 </a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/policies-dashboard/" target="_blank">
+<a class="card" href="https://ksatyaparipurnakumar.github.io/policies-dashboard/" target="_blank" rel="noopener">
   <span class="card-name">Policies Dashboard<span class="card-badge badge-protected">Password</span></span>
   <div class="card-url">ksatyaparipurnakumar.github.io/policies-dashboard</div>
 </a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/properties-dashboard/" target="_blank">
+<a class="card" href="https://ksatyaparipurnakumar.github.io/properties-dashboard/" target="_blank" rel="noopener">
   <span class="card-name">Properties Dashboard<span class="card-badge badge-protected">Password</span></span>
   <div class="card-url">ksatyaparipurnakumar.github.io/properties-dashboard</div>
 </a>
 </div>
 
-<div class="footer">Er. K.S.P. Kumar • Updated November 2026</div>
+<p class="empty" id="empty">No dashboards match your search.</p>
+<div class="footer">Er. K.S.P. Kumar • 34 links • Updated 16 November 2026</div>
+</div>
+<script>
+(function(){
+  var q=document.getElementById('q'),empty=document.getElementById('empty');
+  q.addEventListener('input',function(){
+    var t=q.value.trim().toLowerCase(),shown=0;
+    document.querySelectorAll('.section').forEach(function(s){
+      var n=0;
+      s.querySelectorAll('.card').forEach(function(c){
+        var m=!t||c.textContent.toLowerCase().indexOf(t)>-1;
+        c.style.display=m?'':'none'; if(m)n++;
+      });
+      s.style.display=n?'':'none'; shown+=n;
+    });
+    empty.style.display=shown?'none':'block';
+  });
+})();
+</script>
 </body>
 </html>
