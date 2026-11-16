@@ -27,6 +27,13 @@ h1{text-align:center;font-size:1.5rem;margin-bottom:.5rem;color:#38bdf8}
 .badge-protected{background:#78350f;color:#fbbf24}
 .badge-streamlit{background:#312e81;color:#a5b4fc}
 .badge-claude{background:#3b2f1e;color:#f5c08a}
+.card.group{cursor:default}
+.card.group:hover{transform:none}
+.links{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pill{display:inline-block;text-decoration:none;font-size:.75rem;padding:5px 11px;border-radius:8px;background:#0f172a;border:1px solid #334155;color:#38bdf8;transition:all .2s}
+.pill:hover{border-color:#38bdf8;background:#172554}
+.pill.claude{color:#f5c08a}
+.pill.claude:hover{border-color:#f5c08a;background:#3b2f1e}
 .empty{display:none;text-align:center;color:#64748b;font-size:.85rem;margin:1rem 0}
 .footer{text-align:center;font-size:.7rem;color:#475569;margin-top:2rem;padding-top:1rem;border-top:1px solid #1e293b}
 </style>
@@ -39,16 +46,23 @@ h1{text-align:center;font-size:1.5rem;margin-bottom:.5rem;color:#38bdf8}
 
 <div class="section">
 <div class="section-title">Professional — APEPDCL <span>(11)</span></div>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/Engineers-Seniority-Dashboard/" target="_blank" rel="noopener">
+<div class="card group">
   <span class="card-name">Engineers Seniority Dashboard<span class="card-badge badge-live">Live</span><span class="card-badge badge-new">Updated Nov 2026</span></span>
-  <div class="card-desc">APEPDCL engineers seniority, retirement &amp; promotion forecast</div>
-  <div class="card-url">ksatyaparipurnakumar.github.io/Engineers-Seniority-Dashboard</div>
-</a>
-<a class="card" href="https://ksatyaparipurnakumar.github.io/eht-digital-summator-dashboard/" target="_blank" rel="noopener">
+  <div class="card-desc">APEPDCL engineers seniority, retirement &amp; promotion forecast — 277 engineers, data as on 20-09-2026</div>
+  <div class="links">
+    <a class="pill" href="https://ksatyaparipurnakumar.github.io/Engineers-Seniority-Dashboard/" target="_blank" rel="noopener">Open dashboard (GitHub)</a>
+    <a class="pill claude" href="https://claude.ai/artifact/FHTtmuCVWBSKQvgoMNtjhi" target="_blank" rel="noopener">Claude version</a>
+  </div>
+</div>
+<div class="card group">
   <span class="card-name">EHT Digital Summator Dashboard<span class="card-badge badge-live">Live</span><span class="card-badge badge-new">New</span></span>
-  <div class="card-desc">Multi-feeder digital summation metering — APTRANSCO / CPRI validation</div>
-  <div class="card-url">ksatyaparipurnakumar.github.io/eht-digital-summator-dashboard</div>
-</a>
+  <div class="card-desc">Multi-feeder digital summation metering — APTRANSCO / CPRI validation, with technical notes</div>
+  <div class="links">
+    <a class="pill" href="https://ksatyaparipurnakumar.github.io/eht-digital-summator-dashboard/" target="_blank" rel="noopener">Open dashboard (GitHub)</a>
+    <a class="pill claude" href="https://claude.ai/artifact/4Tu9wMFZdDrKeqAp9aWsgQ" target="_blank" rel="noopener">Claude version</a>
+    <a class="pill claude" href="https://claude.ai/artifact/9yEcZEKHpryDowQEoj2fc6" target="_blank" rel="noopener">Technical Notes</a>
+  </div>
+</div>
 <a class="card" href="https://ksatyaparipurnakumar.github.io/apepdcl-operations-cockpit/" target="_blank" rel="noopener">
   <span class="card-name">APEPDCL Operations Cockpit<span class="card-badge badge-live">Live</span></span>
   <div class="card-desc">SAP Utility Operations Cockpit</div>
@@ -97,73 +111,44 @@ h1{text-align:center;font-size:1.5rem;margin-bottom:.5rem;color:#38bdf8}
 </div>
 
 <div class="section">
-<div class="section-title">Professional — Claude Workspace <span>(6)</span></div>
+<div class="section-title">Professional — Claude Workspace <span>(2)</span></div>
 <p class="note">Opens in Claude — visible only when signed in to Er. K.S.P. Kumar's account.</p>
-<a class="card" href="https://claude.ai/artifact/FHTtmuCVWBSKQvgoMNtjhi" target="_blank" rel="noopener">
-  <span class="card-name">Engineers Seniority Dashboard (Claude)<span class="card-badge badge-claude">Claude</span></span>
-  <div class="card-desc">Seniority, retirement &amp; promotion forecast — 277 engineers, data as on 20-09-2026</div>
-  <div class="card-url">claude.ai/artifact/FHTtmuCVWBSKQvgoMNtjhi</div>
-</a>
-<a class="card" href="https://claude.ai/artifact/4Tu9wMFZdDrKeqAp9aWsgQ" target="_blank" rel="noopener">
-  <span class="card-name">EHT Digital Summator Dashboard (Claude)<span class="card-badge badge-claude">Claude</span><span class="card-badge badge-new">New</span></span>
-  <div class="card-desc">Working copy of the digital summation dashboard</div>
-  <div class="card-url">claude.ai/artifact/4Tu9wMFZdDrKeqAp9aWsgQ</div>
-</a>
-<a class="card" href="https://claude.ai/artifact/9yEcZEKHpryDowQEoj2fc6" target="_blank" rel="noopener">
-  <span class="card-name">Digital Summation Metering — Technical Notes<span class="card-badge badge-claude">Claude</span><span class="card-badge badge-new">New</span></span>
-  <div class="card-desc">Technical notes on multi-feeder digital summation metering</div>
-  <div class="card-url">claude.ai/artifact/9yEcZEKHpryDowQEoj2fc6</div>
-</a>
 <a class="card" href="https://claude.ai/artifact/GKMirCBsfTWNLpP2ALiKGa" target="_blank" rel="noopener">
   <span class="card-name">Meters Pending Report – Visual Insights<span class="card-badge badge-claude">Claude</span></span>
   <div class="card-desc">3-Ph (CT) meters pending — Vizianagaram Circle, 30-09-2026</div>
   <div class="card-url">claude.ai/artifact/GKMirCBsfTWNLpP2ALiKGa</div>
 </a>
-<a class="card" href="https://claude.ai/artifact/NPVL1K8236UT7xRvgfGPCu" target="_blank" rel="noopener">
-  <span class="card-name">Project Punarjyothi – Cyclone Arnab Restoration Plan<span class="card-badge badge-claude">Claude</span></span>
-  <div class="card-desc">Power restoration plan, Sakhinetipalli Mandal</div>
-  <div class="card-url">claude.ai/artifact/NPVL1K8236UT7xRvgfGPCu</div>
-</a>
-<a class="card" href="https://claude.ai/artifact/3xsVnEGeccoNsUarNvjKow" target="_blank" rel="noopener">
-  <span class="card-name">Cyclone Preparedness Action Taken Report<span class="card-badge badge-claude">Claude</span></span>
-  <div class="card-desc">Operation Circle Vizianagaram</div>
-  <div class="card-url">claude.ai/artifact/3xsVnEGeccoNsUarNvjKow</div>
-</a>
+<div class="card group">
+  <span class="card-name">Cyclone Arnab – Restoration &amp; Preparedness<span class="card-badge badge-claude">Claude</span></span>
+  <div class="card-desc">Project Punarjyothi restoration plan (Sakhinetipalli Mandal) and Action Taken Report (Operation Circle Vizianagaram)</div>
+  <div class="links">
+    <a class="pill claude" href="https://claude.ai/artifact/NPVL1K8236UT7xRvgfGPCu" target="_blank" rel="noopener">Project Punarjyothi</a>
+    <a class="pill claude" href="https://claude.ai/artifact/3xsVnEGeccoNsUarNvjKow" target="_blank" rel="noopener">Preparedness ATR</a>
+  </div>
+</div>
 </div>
 
 <div class="section">
-<div class="section-title">Legal &amp; Service Matters <span>(7)</span></div>
+<div class="section-title">Legal &amp; Service Matters <span>(3)</span></div>
 <p class="note">Opens in Claude — visible only when signed in to Er. K.S.P. Kumar's account.</p>
-<a class="card" href="https://claude.ai/artifact/3zBhzBbpdReENZhwbg92Gb" target="_blank" rel="noopener">
-  <span class="card-name">EPF to GPF – Draft Writ Affidavit<span class="card-badge badge-protected">Private</span><span class="card-badge badge-new">Updated 16 Nov</span></span>
-  <div class="card-desc">Draft affidavit for the writ petition</div>
-  <div class="card-url">claude.ai/artifact/3zBhzBbpdReENZhwbg92Gb</div>
-</a>
-<a class="card" href="https://claude.ai/artifact/SekH8kT45Du9Nn7PRAKsEH" target="_blank" rel="noopener">
-  <span class="card-name">EPF to GPF – Brief to Counsel<span class="card-badge badge-protected">Private</span><span class="card-badge badge-new">Updated 16 Nov</span></span>
-  <div class="card-desc">Brief for the advocate</div>
-  <div class="card-url">claude.ai/artifact/SekH8kT45Du9Nn7PRAKsEH</div>
-</a>
-<a class="card" href="https://claude.ai/artifact/8wNXVmvEsjnibYkwAJWez3" target="_blank" rel="noopener">
-  <span class="card-name">EPF to GPF – Case Dossier<span class="card-badge badge-protected">Private</span></span>
-  <div class="card-desc">APSEB AE Notification dt. 18-06-1997 — dossier for the advocate</div>
-  <div class="card-url">claude.ai/artifact/8wNXVmvEsjnibYkwAJWez3</div>
-</a>
-<a class="card" href="https://claude.ai/artifact/9QomGHeEKsY9Ee9ZpWXSFY" target="_blank" rel="noopener">
-  <span class="card-name">Restoring Seniority – Questions for HRD<span class="card-badge badge-protected">Private</span></span>
-  <div class="card-desc">Double punishment, natural justice and the questions for HRD</div>
-  <div class="card-url">claude.ai/artifact/9QomGHeEKsY9Ee9ZpWXSFY</div>
-</a>
-<a class="card" href="https://claude.ai/artifact/4Qs6Z52AUfd93Lmagu6Qi4" target="_blank" rel="noopener">
-  <span class="card-name">Seniority – Reg 3(B) v 3(C), Reg 26<span class="card-badge badge-protected">Private</span></span>
-  <div class="card-desc">Regulation analysis and the double-punishment answer</div>
-  <div class="card-url">claude.ai/artifact/4Qs6Z52AUfd93Lmagu6Qi4</div>
-</a>
-<a class="card" href="https://claude.ai/artifact/WVi1UCj7LVoahc2vF8Tbrg" target="_blank" rel="noopener">
-  <span class="card-name">Seniority Rule Flowchart<span class="card-badge badge-protected">Private</span></span>
-  <div class="card-desc">How APSEB Regulation 3 and 26 fix seniority — Dy.EE (Electrical) example</div>
-  <div class="card-url">claude.ai/artifact/WVi1UCj7LVoahc2vF8Tbrg</div>
-</a>
+<div class="card group">
+  <span class="card-name">EPF to GPF – Writ Case<span class="card-badge badge-protected">Private</span><span class="card-badge badge-new">Updated 16 Nov</span></span>
+  <div class="card-desc">APSEB AE Notification dt. 18-06-1997 — affidavit, counsel brief and case dossier</div>
+  <div class="links">
+    <a class="pill claude" href="https://claude.ai/artifact/3zBhzBbpdReENZhwbg92Gb" target="_blank" rel="noopener">Draft Writ Affidavit</a>
+    <a class="pill claude" href="https://claude.ai/artifact/SekH8kT45Du9Nn7PRAKsEH" target="_blank" rel="noopener">Brief to Counsel</a>
+    <a class="pill claude" href="https://claude.ai/artifact/8wNXVmvEsjnibYkwAJWez3" target="_blank" rel="noopener">Case Dossier</a>
+  </div>
+</div>
+<div class="card group">
+  <span class="card-name">Seniority Restoration Case<span class="card-badge badge-protected">Private</span></span>
+  <div class="card-desc">Double punishment &amp; natural justice; APSEB Reg 3(B) v 3(C) and Reg 26; Dy.EE (Electrical) worked example</div>
+  <div class="links">
+    <a class="pill claude" href="https://claude.ai/artifact/9QomGHeEKsY9Ee9ZpWXSFY" target="_blank" rel="noopener">Restoring Seniority – Questions for HRD</a>
+    <a class="pill claude" href="https://claude.ai/artifact/4Qs6Z52AUfd93Lmagu6Qi4" target="_blank" rel="noopener">Reg 3(B) v 3(C), Reg 26</a>
+    <a class="pill claude" href="https://claude.ai/artifact/WVi1UCj7LVoahc2vF8Tbrg" target="_blank" rel="noopener">Seniority Rule Flowchart</a>
+  </div>
+</div>
 <a class="card" href="https://claude.ai/artifact/DKcnuCpNke5ekV6m6EaLUy" target="_blank" rel="noopener">
   <span class="card-name">SVN Nagar Park – Temples: Legal Position<span class="card-badge badge-protected">Private</span></span>
   <div class="card-desc">Legal position and notices</div>
@@ -230,7 +215,7 @@ h1{text-align:center;font-size:1.5rem;margin-bottom:.5rem;color:#38bdf8}
 </div>
 
 <p class="empty" id="empty">No dashboards match your search.</p>
-<div class="footer">Er. K.S.P. Kumar • 34 links • Updated 16 November 2026</div>
+<div class="footer">Er. K.S.P. Kumar • 26 dashboards • Updated 16 November 2026</div>
 </div>
 <script>
 (function(){
