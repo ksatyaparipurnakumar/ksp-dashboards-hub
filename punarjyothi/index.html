@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Punarjyothi – Disaster Management Template</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f4f6fa;--card:#fff;--ink:#0f172a;--mute:#5b6577;--line:#e3e7ee;--nav:#0b2545;--nav2:#13315c;--acc:#1d6fd8;--ok:#15803d;--warn:#b45309;--bad:#b91c1c;--c1:#1d6fd8;--c2:#0f9d8a;--c3:#e08a00;--c4:#8b5cf6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
+.app{display:flex;min-height:100vh}
+aside{width:250px;background:var(--nav);color:#dbe4f3;flex-shrink:0;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{padding:18px 18px 14px;border-bottom:1px solid #1e3a66}
+.brand b{display:block;font-size:17px;color:#fff;letter-spacing:.3px}
+.brand span{font-size:11.5px;color:#9fb3d1}
+nav a{display:flex;align-items:center;gap:10px;padding:10px 18px;color:#c7d3e8;text-decoration:none;font-size:13.5px;border-left:3px solid transparent}
+nav a:hover{background:var(--nav2);color:#fff}
+nav a.on{background:var(--nav2);color:#fff;border-left-color:#4ea1ff;font-weight:600}
+nav .grp{font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:#7f93b4;padding:14px 18px 4px}
+.ico{width:18px;text-align:center}
+main{flex:1;min-width:0;padding:22px 26px 40px}
+header.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+header.top h1{font-size:21px}
+header.top p{color:var(--mute);font-size:12.5px;margin-top:3px}
+.tag{display:inline-block;background:#e8f1fd;color:var(--acc);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600}
+.menu{display:none;background:var(--nav);color:#fff;border:0;border-radius:8px;padding:8px 12px;font-size:15px;cursor:pointer}
+section.view{display:none}section.view.on{display:block}
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.kpi .v{font-size:24px;font-weight:700;margin-top:2px}
+.kpi .l{font-size:12px;color:var(--mute)}
+.kpi .s{font-size:11.5px;color:var(--mute);margin-top:4px}
+.kpi.b{border-top:3px solid var(--c1)}.kpi.g{border-top:3px solid var(--c2)}.kpi.o{border-top:3px solid var(--c3)}.kpi.p{border-top:3px solid var(--c4)}.kpi.r{border-top:3px solid var(--bad)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:14px;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;min-width:0}
+.card h2{font-size:15px;margin-bottom:4px}
+.card .sub{font-size:12px;color:var(--mute);margin-bottom:10px}
+.chart{position:relative;height:270px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th{background:#eef2f8;text-align:left;font-weight:600;padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap;position:sticky;top:0}
+td{padding:6px 8px;min-width:44px;border-bottom:1px solid #eef0f4;vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.tot td{font-weight:700;background:#f6f8fc}
+tr.grp td{font-weight:700;background:#e8eef8;color:var(--nav)}
+tr.neg td.bal{color:var(--bad);font-weight:600}
+.bar{height:9px;background:#e9edf3;border-radius:6px;overflow:hidden;min-width:90px}
+.bar i{display:block;height:100%;background:var(--ok)}
+.note{font-size:12px;color:var(--mute);line-height:1.55}
+.note li{margin:3px 0 3px 18px}
+.alert{background:#fff7e6;border:1px solid #f5d38a;color:#7a4a00;border-radius:10px;padding:10px 14px;font-size:12.5px;margin-bottom:14px;line-height:1.5}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tools input,.tools select{padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff}
+.tools input{flex:1;min-width:180px}
+.scroll td:first-child{min-width:170px}
+#tLedger td:nth-child(2){white-space:nowrap}
+#tLedger td:last-child,#tDtrRec td:last-child,#tDtrIss td:last-child{min-width:240px}
+.scroll{max-height:520px;overflow:auto;border:1px solid var(--line);border-radius:8px}
+.chip{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:600}
+.chip.in{background:#e6f6ec;color:var(--ok)}.chip.out{background:#fdecec;color:var(--bad)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12.5px;margin:6px 0 4px}
+.flow span{background:#eef4fd;border:1px solid #cfe0f7;border-radius:8px;padding:6px 10px}
+.flow b{color:var(--mute)}
+a.lnk{color:var(--acc)}
+.pjhero{display:flex;gap:26px;align-items:center;background:linear-gradient(120deg,#0b2545 0%,#13315c 60%,#1d4e89 100%);color:#fff;border-radius:16px;padding:26px 30px;margin-bottom:16px;flex-wrap:wrap}
+.pjlogo{width:128px;height:128px;flex-shrink:0;filter:drop-shadow(0 4px 14px rgba(242,169,0,.35))}
+.pjkick{letter-spacing:6px;font-size:12px;color:#f2a900;font-weight:700}
+.pjtitle{font-size:40px;letter-spacing:4px;font-weight:800;line-height:1.05}
+.pjtag{color:#ffd970;font-size:14px;letter-spacing:2px;margin:4px 0 10px}
+.pjlead{max-width:720px;color:#d4def0;font-size:13.5px;line-height:1.6}
+.pjbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.btn{display:inline-block;text-decoration:none;border:1px solid #c9d6ea;background:#fff;color:#0b2545;border-radius:9px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer}
+.pjhero .btn{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.35)}
+.btn.gold,.pjhero .btn.gold{background:#f2a900;border-color:#f2a900;color:#0b2545}
+.btn.sm{padding:5px 10px;font-size:12px}.btn.big{padding:12px 18px;font-size:14px}
+.phases{display:flex;align-items:stretch;gap:6px;flex-wrap:wrap}
+.ph{flex:1;min-width:140px;border-radius:12px;padding:12px;background:color-mix(in srgb,var(--c) 9%,#fff);border:1px solid color-mix(in srgb,var(--c) 35%,#fff);border-top:4px solid var(--c)}
+.ph .pht{font-size:11px;color:var(--c);font-weight:700}.ph b{display:block;font-size:15px;margin:2px 0}.ph span{font-size:12px;color:#5b6577}
+.parr{align-self:center;color:#9aa6b8;font-size:22px}
+ol.gold li{margin:5px 0 5px 20px}
+.form{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px 12px}
+.form label{display:flex;flex-direction:column;font-size:12px;color:#5b6577;gap:3px}
+.form input{padding:7px 9px;border:1px solid #cfd8e6;border-radius:8px;font-size:14px;background:#fffbea}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:8px 6px;border-bottom:1px solid #eef0f4;font-size:13px;cursor:pointer}
+.chk input{margin-top:3px;width:16px;height:16px}.chk span{flex:1}
+.chk input:checked+span{color:#5b6577;text-decoration:line-through}
+.ptag{font-style:normal;font-size:10.5px;padding:2px 8px;border-radius:10px;background:#eef2f8;color:#13315c;white-space:nowrap}
+.p-Alert{background:#efe7fe;color:#6d28d9}.p-Response{background:#fde7ef;color:#b0285a}
+.bar.big{height:12px}
+.circ{border:1px solid #e3e7ee;border-left:4px solid #f2a900;border-radius:10px;padding:12px;margin-bottom:12px}
+.ob{background:#f6f8fc;border:1px solid #dfe6f1;border-left:4px solid #1d6fd8;border-radius:8px;padding:7px 10px;margin:5px 0}
+.ob b{display:block;font-size:13px}.ob span{font-size:12px;color:#5b6577}
+.pjdl{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;background:#fff8e1;border:1px solid #f5d38a;border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.tc{display:flex;gap:12px;background:#fff;border:1px solid #e3e7ee;border-radius:12px;padding:14px}
+.tci{font-size:26px;width:44px;height:44px;border-radius:10px;background:#0b2545;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tcb{display:flex;flex-direction:column;gap:5px;min-width:0}.tcn{font-weight:700;font-size:13.5px}
+.tcb .btn{align-self:flex-start;margin-top:4px}
+details summary{font-size:12px;color:#1d6fd8;cursor:pointer}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.gal figure{background:#fff;border:1px solid #e3e7ee;border-radius:12px;overflow:hidden;cursor:zoom-in}
+.gal img{width:100%;display:block;aspect-ratio:4/3;object-fit:cover}
+.gal figcaption{font-size:12px;color:#5b6577;padding:8px 10px}
+.lb{position:fixed;inset:0;background:rgba(5,12,25,.88);display:none;align-items:center;justify-content:center;z-index:50;flex-direction:column;padding:20px}
+.lb.on{display:flex}.lb img{max-width:100%;max-height:85vh;border-radius:8px}.lb p{color:#dbe4f3;margin-top:10px;font-size:13px}
+nav .grp.pj{color:#f2a900}
+footer{font-size:11.5px;color:var(--mute);margin-top:24px;border-top:1px solid var(--line);padding-top:10px}
+@media (max-width:900px){
+ aside{position:fixed;left:-260px;z-index:20;transition:left .2s}
+ aside.open{left:0;box-shadow:0 0 30px rgba(0,0,0,.35)}
+ .menu{display:inline-block}
+ main{padding:16px 12px 30px}
+ .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside id="side">
+  <div class="brand"><b>🪔 Project Punarjyothi</b><span>Disaster management for power distribution · Restore · Rebuild · Resilient</span></div>
+  <nav id="nav">
+
+    <div class="grp pj">★ Project Punarjyothi</div>
+    <a href="#pj-home" data-v="pj-home"><span class="ico">🪔</span>Punarjyothi Home</a>
+    <a href="#pj-prep" data-v="pj-prep"><span class="ico">✅</span>Preparedness</a>
+    <a href="#pj-org" data-v="pj-org"><span class="ico">🏛️</span>Organisation &amp; Manpower</a>
+    <a href="#pj-plan" data-v="pj-plan"><span class="ico">🧮</span>Resource Planner</a>
+    <a href="#pj-material" data-v="pj-material"><span class="ico">📦</span>Material &amp; Machinery</a>
+    <a href="#pj-exec" data-v="pj-exec"><span class="ico">⏱️</span>Execution &amp; Reporting</a>
+    <a href="#pj-welfare" data-v="pj-welfare"><span class="ico">🍲</span>Welfare, Shelter &amp; Payments</a>
+    <a href="#pj-resilience" data-v="pj-resilience"><span class="ico">🛠️</span>Build Back Resilient</a>
+    <a href="#pj-templates" data-v="pj-templates"><span class="ico">⬇️</span>Download Templates</a>
+  </nav>
+</aside>
+<main>
+<header class="top">
+  <div>
+    <button class="menu" id="menu" aria-label="Menu">☰</button>
+    <h1 id="vt">Overview &amp; KPIs</h1>
+    <p id="subt">Cyclone · flood · storm – preparedness to restoration, for any circle, division or mandal</p>
+  </div>
+  <span class="tag">Template kit v1.0 · November 2026</span>
+</header>
+
+
+<!-- ===== PROJECT PUNARJYOTHI – generic disaster-management template ===== -->
+<section class="view" id="v-pj-home">
+  <div class="pjhero">
+    <svg viewBox="0 0 120 120" class="pjlogo" aria-hidden="true">
+      <defs><radialGradient id="pjg" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#f2a900"/></radialGradient></defs>
+      <circle cx="60" cy="60" r="56" fill="#0b2545" stroke="#f2a900" stroke-width="3"/>
+      <g stroke="#f2a900" stroke-width="3" stroke-linecap="round" opacity=".9">
+        <line x1="60" y1="14" x2="60" y2="26"/><line x1="27" y1="27" x2="35" y2="35"/><line x1="93" y1="27" x2="85" y2="35"/><line x1="14" y1="60" x2="26" y2="60"/><line x1="106" y1="60" x2="94" y2="60"/></g>
+      <path d="M60 30 C44 30 36 42 36 54 C36 64 43 70 47 76 L47 84 L73 84 L73 76 C77 70 84 64 84 54 C84 42 76 30 60 30 Z" fill="url(#pjg)"/>
+      <path d="M63 38 L52 60 L60 60 L55 76 L70 52 L62 52 L67 38 Z" fill="#0b2545"/>
+      <rect x="48" y="87" width="24" height="5" rx="2" fill="#f2a900"/><rect x="51" y="95" width="18" height="5" rx="2" fill="#f2a900"/>
+    </svg>
+    <div>
+      <div class="pjkick">PROJECT</div>
+      <h2 class="pjtitle">PUNARJYOTHI</h2>
+      <div class="pjtag">Restore · Rebuild · Resilient</div>
+      <p class="pjlead">A ready-to-use disaster-management framework for power distribution networks hit by cyclones, floods and storms – from the first IMD warning to the last service restored. Use it for any district, circle or mandal: the norms, checklists, calculators and 20 Excel templates work as they are.</p>
+      <div class="pjbtns"><a class="btn gold" href="#pj-templates">⬇ Download templates</a><a class="btn" href="#pj-plan">🧮 Plan resources</a><a class="btn" href="#pj-prep">✅ Preparedness checklist</a></div>
+    </div>
+  </div>
+  <div class="card"><h2>The Punarjyothi cycle</h2><div class="sub">Five phases; every register, report and decision belongs to one of them</div><div class="phases" id="pjPhases"></div></div>
+  <div class="kpis" id="pjNorms"></div>
+  <div class="grid">
+    <div class="card"><h2>Ten golden rules</h2><ol class="note gold" id="pjRules"></ol></div>
+    <div class="card"><h2>What history teaches</h2><div class="tw" id="pjHist"></div></div>
+  </div>
+</section>
+
+<section class="view" id="v-pj-prep">
+  <div class="card"><h2>Preparedness checklist</h2><div class="sub">Tick items as they are completed. Ticks are kept in this browser only. The same list is template 19.</div>
+    <div class="tools"><select id="pjPhaseF"><option value="">All phases</option><option>Preparedness</option><option>Alert</option><option>Response</option></select><button class="btn sm" id="pjReset">Clear ticks</button></div>
+    <div class="bar big"><i id="pjPrepBar" style="width:0"></i></div><div class="note" id="pjPrepTxt" style="margin:4px 0 10px"></div>
+    <div id="pjChecklist"></div></div>
+  <div class="card"><h2>Corporate instructions on cyclone preparedness</h2><div class="sub">Instructions issued in November 2026 that every circle should build into its plan</div><div id="pjCirc"></div></div>
+</section>
+
+<section class="view" id="v-pj-org">
+  <div class="grid">
+    <div class="card"><h2>Command structure</h2><div class="sub">One owner per line; the engineer stays on the line</div><div class="org" id="pjOrg"></div></div>
+    <div class="card"><h2>Sub-store for material management</h2><div class="tw" id="pjSubStore"></div><p class="note" style="margin-top:8px">Open 5:30 AM – 9 PM. Issue against indent within 2 hours. Three batches with crane for loading and unloading.</p></div>
+  </div>
+  <div class="card"><h2>Control-room counters (site office layout)</h2><div class="tw" id="pjCounters"></div></div>
+  <div class="grid">
+    <div class="card"><h2>Staff allocation – everyone supports the engineers</h2><div class="tw" id="pjStaff"></div></div>
+    <div class="card"><h2>Dress code and identification</h2><div class="tw" id="pjDress"></div></div>
+  </div>
+  <div class="card"><h2>Convergence of departments</h2><div class="sub">Mandal / district coordination committee meets daily at 8 PM</div><div class="tw" id="pjDept"></div></div>
+</section>
+
+<section class="view" id="v-pj-plan">
+  <div class="alert">Enter the damage enumerated and the target days. The planner works out batches, labour, machinery, tools, material weight, food and water, and the SDRF claim. All norms are editable planning assumptions – adjust them to your terrain.</div>
+  <div class="grid">
+    <div class="card"><h2>1. Damage enumerated</h2><div class="form" id="pjIn"></div></div>
+    <div class="card"><h2>2. Planning norms (editable)</h2><div class="form" id="pjNormIn"></div></div>
+  </div>
+  <div class="kpis" id="pjOut"></div>
+  <div class="grid">
+    <div class="card"><h2>Resources required</h2><div class="tw" id="pjOutRes"></div></div>
+    <div class="card"><h2>Material, logistics and claim</h2><div class="tw" id="pjOutMat"></div></div>
+  </div>
+  <div class="card"><h2>Copy the plan</h2><div class="sub">Paste into a report, e-mail or WhatsApp</div><button class="btn" id="pjCopy">📋 Copy plan summary</button> <span class="note" id="pjCopyMsg"></span></div>
+</section>
+
+<section class="view" id="v-pj-material">
+  <div class="card"><h2>Material chain</h2>
+    <div class="flow"><span>Damage enumeration</span><b>→</b><span>Requirement (area / DTR-wise)</span><b>→</b><span>Indent</span><b>→</b><span>Receipt at sub-store</span><b>→</b><span>Issue to batch</span><b>→</b><span>Utilisation at pole / DTR</span><b>→</b><span>Balance → next indent</span></div>
+    <p class="note">Every step is one line in a register (templates 03–08, 20). Unused material is devolved back and accounted item-wise after the restoration.</p></div>
+  <div class="card"><h2>Pole types – specification and handling</h2><div class="tw" id="pjPoles"></div><p class="note" style="margin-top:8px">Source: AP common Standard Schedule of Rates, 2021-22. Prefer spun poles on rebuilt spans of the worst-hit feeders.</p></div>
+  <div class="grid">
+    <div class="card"><h2>Pre-stock list for each sub-store</h2><div class="tw" id="pjPrestock"></div></div>
+    <div class="card"><h2>Procurement rules</h2><ul class="note">
+      <li>Split pole orders type-wise across several approved manufacturers; no single factory sets the pace.</li>
+      <li>Ask each manufacturer for a daily dispatch quantity and the nearest delivery point.</li>
+      <li>Record ordered, dispatched, received and balance daily; late orders turn red.</li>
+      <li>Plan lorries and cranes from weight, not count.</li>
+      <li>Keep Annual Rate Contracts in coastal areas so material and workforce come without tender delay.</li>
+      <li>Record spares on the DRIPS portal; review the material bank before every cyclone season.</li>
+      <li>After restoration, devolve unused material and arrive at quantities material-wise.</li></ul></div>
+  </div>
+</section>
+
+<section class="view" id="v-pj-exec">
+  <div class="card"><h2>CPM / PERT – one feeder</h2><div class="sub">Critical path A → B → E → F → G → J → K = 10.5 days. Protect material dumping (B).</div><div id="pjGantt"></div></div>
+  <div class="grid">
+    <div class="card"><h2>Daily rhythm</h2><div class="tw" id="pjRhythm"></div></div>
+    <div class="card"><h2>Reporting system</h2><ul class="note">
+      <li><b>10 AM and 4 PM</b> – officer-in-charge reports: poles, spans, DTRs, services, labour, machinery, material short, help needed (template 14).</li>
+      <li><b>Same hour</b> – control room consolidates feeder-wise and SS-wise; chases a missing report within 30 minutes.</li>
+      <li><b>8 PM</b> – review chaired with the revenue authority; next day's plan and machinery moves.</li>
+      <li><b>Village level</b> – unrestored houses reported by volunteers; complaint register logs time closed.</li>
+      <li><b>Evidence</b> – GPS-stamped before/after photo for every pole and DTR.</li>
+      <li><b>Micro</b> – span-by-span on the feeder sketch. <b>Macro</b> – % of km per feeder across the area.</li></ul></div>
+  </div>
+  <div class="card"><h2>Bottlenecks and corrections</h2><div class="tw" id="pjBottle"></div></div>
+  <div class="card"><h2>Assurance of electrification</h2><div class="flow"><span>Service list DTR-wise from billing</span><b>→</b><span>House-to-house tick by lineman + volunteer</span><b>→</b><span>Unrestored list to officer the same evening</span><b>→</b><span>Certificate signed by AE, Village Secretary, VRO</span><b>→</b><span>Village closed in daily report</span></div></div>
+</section>
+
+<section class="view" id="v-pj-welfare">
+  <div class="grid">
+    <div class="card"><h2>Camp norms</h2><div class="tw" id="pjCamp"></div></div>
+    <div class="card"><h2>Payments – no cash in the field</h2><div class="tw" id="pjPay"></div></div>
+  </div>
+  <div class="grid">
+    <div class="card"><h2>Permanent restoration shelter – 50 persons at each 33/11 KV SS</h2><div class="tw" id="pjShelter50"></div><p class="note" style="margin-top:8px">Plinth about 420–430 m²; plinth above highest flood level; RCC frame for the coastal wind zone; RO plant, 5,000 L tank, generator + rooftop solar.</p></div>
+    <div class="card"><h2>Village multi-purpose shelter – 250 persons</h2><div class="tw" id="pjShelter250"></div><p class="note" style="margin-top:8px">Every shelter needs a management committee, a maintenance fund and a peace-time use from day one.</p></div>
+  </div>
+  <div class="card"><h2>SDRF / NDRF assistance norms</h2><div class="tw" id="pjSdrfN"></div></div>
+</section>
+
+<section class="view" id="v-pj-resilience">
+  <div class="card"><h2>Building back resilient – CEA Task Force measures</h2><div class="tw" id="pjRes"></div></div>
+  <div class="card"><h2>Tools and tackles for each batch</h2><div class="tw" id="pjTools"></div></div>
+</section>
+
+<section class="view" id="v-pj-templates">
+  <div class="pjdl">
+    <div><h2 style="font-size:18px">Punarjyothi template kit</h2><p class="note">20 Excel registers with drop-downs, formulas, totals, print set-up and one example row each. Download all in one workbook or any single register.</p></div>
+    <a class="btn gold big" href="https://ksatyaparipurnakumar.github.io/ksp-dashboards-hub/punarjyothi/templates/Punarjyothi_DM_Templates_All.xlsx" target="_blank" rel="noopener">⬇ Download all 20 templates (.xlsx)</a>
+  </div>
+  <div class="tools"><input id="pjTq" placeholder="Search templates…"></div>
+  <div class="tcards" id="pjTcards"></div>
+  <p class="note" style="margin-top:10px">Inside Claude, downloads open in your browser from the GitHub copy of this dashboard. Registers that look up item names (04–07, 20) come with the Material Master sheet; Cumulative Progress (15) comes with Daily Progress (14).</p>
+</section>
+
+<div class="lb" id="lb"><img id="lbi" alt=""><p id="lbc"></p></div>
+<footer>Project Punarjyothi · Prepared by Er. K.S.P. Kumar, B.E., M.B.A., M.I.E. · Norms are planning guides; adapt them to local conditions.</footer>
+</main>
+</div>
+<script>
+const fmt=(v,d)=>{if(v===null||v===undefined||v==='')return '';if(typeof v==='number'){return d!==undefined?v.toLocaleString('en-IN',{minimumFractionDigits:d,maximumFractionDigits:d}):v.toLocaleString('en-IN',{maximumFractionDigits:2})}return String(v)};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const sum=a=>a.reduce((x,y)=>x+(+y||0),0);
+function table(h,rows,o={}){let s='<table><thead><tr>'+h.map((x,i)=>`<th class="${o.num&&o.num(i)?'n':''}">${esc(x)}</th>`).join('')+'</tr></thead><tbody>';
+ rows.forEach(r=>{let cls=o.rowCls?o.rowCls(r):'';s+=`<tr class="${cls}">`+r.map((c,i)=>{let n=typeof c==='number';return `<td class="${n?'n':''} ${o.cellCls?o.cellCls(i,c):''}">${o.cell?o.cell(i,c,r):esc(fmt(c))}</td>`}).join('')+'</tr>'});return s+'</tbody></table>'}
+const $=id=>document.getElementById(id);
+const kpi=(el,arr)=>{$(el).innerHTML=arr.map(k=>`<div class="kpi ${k[3]||'b'}"><div class="l">${k[0]}</div><div class="v">${k[1]}</div>${k[2]?`<div class="s">${k[2]}</div>`:''}</div>`).join('')};
+const C={c1:'#1d6fd8',c2:'#0f9d8a',c3:'#e08a00',c4:'#8b5cf6',c5:'#64748b',c6:'#d9467a'};
+const PAL=[C.c1,C.c2,C.c3,C.c4,C.c5,C.c6];
+Chart.defaults.font.family='-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif';Chart.defaults.font.size=11.5;Chart.defaults.color='#5b6577';
+Chart.defaults.plugins.legend.labels.boxWidth=12;Chart.defaults.maintainAspectRatio=false;
+const charts={};function mk(id,cfg){if(charts[id])return;charts[id]=new Chart($(id),cfg)}
+let views={};const DEFAULT_VIEW='pj-home';
+
+// ===== PROJECT PUNARJYOTHI – generic module =====
+const PJ = {
+ tplBase: "https://ksatyaparipurnakumar.github.io/ksp-dashboards-hub/punarjyothi/templates/",
+ tpls: [{"key": "01_Area_Master", "title": "Area Master", "purpose": "One row per 11 KV feeder / area: the backbone every other register refers to.", "cols": ["33/11 KV SS", "11 KV Feeder", "Area / Village", "Feeder length (km)", "No. of DTRs", "Services", "Critical loads (water, hospital\u2026)", "Officer-in-charge", "Phone", "Local O&M guide", "Phone"], "file": "Punarjyothi_01_Area_Master.xlsx"}, {"key": "02_Damage_Enumeration", "title": "Damage Enumeration", "purpose": "Area-wise damage survey by the survey team (AE/AEE + jurisdiction lineman) within 24 hours of landfall.", "cols": ["Date", "33/11 KV SS", "11 KV Feeder", "Area / Village", "Poles broken 9.1 m", "Poles broken 8.0 m", "Poles leaning", "11 KV V X-arms", "LT X-arms", "11 KV conductor (km)", "6.3 KV conductor (km)", "LT line / cable (km)", "DTRs 1-Ph", "DTRs 3-Ph 16/25", "DTRs 3-Ph 40", "DTRs 3-Ph 63", "DTRs 3-Ph 100", "DTR structures fallen", "Services affected", "Total poles", "Total DTRs", "Remarks"], "file": "Punarjyothi_02_Damage_Enumeration.xlsx"}, {"key": "03_Material_Master", "title": "Material Master", "purpose": "Standard list of items with code, voltage class, unit, unit weight and rate. Pre-filled with common items \u2013 add your own.", "cols": ["Code", "Item description", "Class", "Unit", "Unit weight (kg)", "Rate (Rs)", "Spec / remarks"], "file": "Punarjyothi_03_Material_Master.xlsx"}, {"key": "04_Material_Requirement", "title": "Material Requirement", "purpose": "Area-wise requirement vs stock: the shortfall becomes the next indent.", "cols": ["33/11 KV SS", "Area / Feeder", "Item code", "Item", "Unit", "Required", "In mini store", "With batches", "Shortfall to indent", "Weight to move (kg)", "Indent no.", "Remarks"], "file": "Punarjyothi_04_Material_Requirement.xlsx"}, {"key": "05_Material_Receipts", "title": "Material Receipts", "purpose": "Every receipt at a sub-store / mini store against challan, T-note or gate pass.", "cols": ["Date", "Store", "Document type", "Document no.", "Received from", "Vehicle no.", "Item code", "Item", "Qty", "Unit", "Condition", "Received by", "Remarks"], "file": "Punarjyothi_05_Material_Receipts.xlsx"}, {"key": "06_Material_Issues", "title": "Material Issues", "purpose": "Every issue to a batch, tagged to feeder / area / DTR so utilisation can be checked.", "cols": ["Date", "Store", "Indent no.", "Issued to (batch / LM)", "33/11 KV SS", "Feeder / Area / DTR", "Vehicle no.", "Item code", "Item", "Qty", "Unit", "Utilised", "Returned", "Balance with batch", "Remarks"], "file": "Punarjyothi_06_Material_Issues.xlsx"}, {"key": "07_Stock_Register", "title": "Stock Register", "purpose": "Item-wise stock = opening + receipts \u2013 issues, calculated from sheets 05 and 06.", "cols": ["Item code", "Item", "Unit", "Opening stock", "Receipts", "Issues", "Closing stock", "Minimum level", "Status"], "file": "Punarjyothi_07_Stock_Register.xlsx"}, {"key": "08_DTR_Register", "title": "DTR Register", "purpose": "Serial-wise DTR movement: received, tested (MRT), issued and charged.", "cols": ["Date", "Movement", "Store", "Capacity", "Make", "Sr. No.", "Eq. No.", "From / To", "Feeder / DTR location", "Vehicle no.", "MRT tested", "Date charged", "Condition", "Remarks"], "file": "Punarjyothi_08_DTR_Register.xlsx"}, {"key": "09_Batch_Register", "title": "Manpower \u2013 Batch Register", "purpose": "Every labour batch: where it came from, size, supervisor, allotment and machinery with it.", "cols": ["Batch name", "Deputed from", "No. of batches", "Labour", "Supervisor", "Phone", "Allotted SS", "Allotted feeder / area", "Officer-in-charge", "Local guide", "Crane", "PDM / digger", "JCB", "Hydra", "Tractor", "Arrived on", "Released on", "Camp"], "file": "Punarjyothi_09_Batch_Register.xlsx"}, {"key": "10_Officers_Staff", "title": "Officers & Staff for Cyclone Works", "purpose": "Employees identified for cyclone works (EE to JE, Accounts, Admin) \u2013 as per the corporate proforma, plus the duty assigned.", "cols": ["S.No.", "Emp. ID", "Name & Designation", "Present place of working", "Contact \u2013 Official", "Contact \u2013 Personal", "Cadre", "Duty assigned", "Posted to (SS / store / control room)", "Shift", "Health fit for field duty"], "file": "Punarjyothi_10_Officers_Staff.xlsx"}, {"key": "11_Labour_Muster", "title": "Labour Muster", "purpose": "Twice-daily attendance with GPS-stamped group photo \u2013 the basis of labour payment.", "cols": ["Date", "Batch", "Feeder / area", "Labour present AM", "Labour present PM", "Days counted", "Photo ref (AM)", "Photo ref (PM)", "Supervisor sign", "Officer sign", "Village secretary sign"], "file": "Punarjyothi_11_Labour_Muster.xlsx"}, {"key": "12_Machinery_Log", "title": "Machinery Log", "purpose": "Daily log of every hired crane, PDM, JCB, tractor, lorry, hydra and vehicle.", "cols": ["Date", "Vehicle no.", "Type", "Owner", "Attached to batch / feeder", "Start time", "End time", "Hours worked", "Rate per hour (Rs)", "Amount (Rs)", "Fuel slip no.", "Work done"], "file": "Punarjyothi_12_Machinery_Log.xlsx"}, {"key": "13_Diesel_Register", "title": "Diesel Register", "purpose": "Numbered fuel slips, capped at hours worked \u00d7 fuel norm.", "cols": ["Date", "Slip no.", "Vehicle no.", "Type", "Hour meter / odometer", "Hours worked", "Fuel norm (L/hr)", "Max allowed (L)", "Litres issued", "Excess (L)", "Bunk", "Bill no."], "file": "Punarjyothi_13_Diesel_Register.xlsx"}, {"key": "14_Daily_Progress", "title": "Daily Progress (feeder-wise)", "purpose": "One row per team per day, reported at 10 AM and 4 PM. Spans convert to km at the span length in cell B3.", "cols": ["Date", "33/11 KV SS", "11 KV Feeder / Area", "Team / batch", "11 KV spans", "6.3 KV spans", "LT spans", "LT AB spans", "Direct km (if reported in km)", "Line restored (km)", "New poles 9.1 m", "New poles 8.0 m", "Leaned set right", "DTRs OC (existing)", "DTRs NC (new)", "Services restored", "Labour", "Crane", "PDM", "Material short / help needed"], "file": "Punarjyothi_14_Daily_Progress.xlsx"}, {"key": "15_Cumulative_Progress", "title": "Cumulative Progress", "purpose": "Day-wise and cumulative totals pulled automatically from sheet 14.", "cols": ["Date", "Line restored (km)", "Cum. line (km)", "New poles", "Cum. new poles", "Leaned set right", "Cum. leaned", "DTRs charged", "Cum. DTRs", "Services restored", "Cum. services", "Labour"], "file": "Punarjyothi_15_Cumulative_Progress.xlsx"}, {"key": "16_Village_Electrification", "title": "Village Electrification", "purpose": "A village is closed only when every service on every DTR is verified and certified.", "cols": ["33/11 KV SS", "Feeder", "Village / habitation", "DTRs", "DTRs charged", "Services", "Services verified", "% verified", "Status", "Certificate date", "Signed by AE / VS / VRO"], "file": "Punarjyothi_16_Village_Electrification.xlsx"}, {"key": "17_Food_Camp", "title": "Food & Camp Register", "purpose": "Meals served per camp; cannot exceed attendance + officers on the muster.", "cols": ["Date", "Camp", "Labour on muster", "Officers & staff", "Persons", "Breakfast", "Lunch", "Dinner", "Meals served", "Meals allowed", "Excess", "Water (L) @5 L/person", "Vendor", "Rate per meal (Rs)", "Amount (Rs)"], "file": "Punarjyothi_17_Food_Camp.xlsx"}, {"key": "18_Payment_Register", "title": "Payment Register", "purpose": "No cash in the field. Pay only when work record, attendance/log and bill agree (three-way check).", "cols": ["Bill date", "Payee", "Category", "Feeder", "Period", "Quantity (days / hrs / meals / km)", "Rate (Rs)", "Bill amount (Rs)", "Work record OK", "Attendance / log OK", "Bill OK", "Cleared", "UTR no.", "Paid on"], "file": "Punarjyothi_18_Payment_Register.xlsx"}, {"key": "19_Preparedness_Checklist", "title": "Preparedness Checklist", "purpose": "Tick before the landfall warning. Owner and due date for every item.", "cols": ["No.", "Action", "Phase", "Owner", "Due", "Status", "Remarks"], "file": "Punarjyothi_19_Preparedness_Checklist.xlsx"}, {"key": "20_Sub_Store", "title": "Sub-Store Daily Statement", "purpose": "Daily closing of the sub-store: what came, what went, what is short.", "cols": ["Date", "Sub-store", "Item code", "Item", "Unit", "Opening", "Received", "Issued", "Closing", "Requirement next day", "Shortfall", "Action"], "file": "Punarjyothi_20_Sub_Store.xlsx"}],
+ phases: [
+  ["T-72 h","Preparedness","Stock, contracts, people, shelters, sketches","#1d6fd8"],
+  ["T-24 h","Alert","Control room 24×7, survey teams, feeders isolated above 50 kmph","#8b5cf6"],
+  ["0-24 h","Response","Route clearance, damage enumeration, critical loads first","#d9467a"],
+  ["Day 1-7","Restoration","Batch-wise, feeder-wise, village-wise; twice-daily reports","#e08a00"],
+  ["After","Recovery","Verification, payments, devolution, build back resilient","#0f9d8a"]],
+ norms: [["Restore all defects","2 days","from landfall – State target",'r'],["Control room","24 × 7","from first warning",'b'],["Damage survey","< 24 hours","one team per 11 KV feeder",'b'],["Indent to issue","2 hours","at every sub-store",'g'],["Reports","10 AM · 4 PM","review at 8 PM",'o'],["Officers per circle","30","EE to JE, field-ready",'p'],["Accounts / admin","10","JAO / SA per circle",'p'],["Water","5 L","per person per day",'g']],
+ rules: ["Finish preparedness before the landfall warning – restoration must start within 12 hours of the storm clearing.","Switch off feeders certain to be affected when wind exceeds 50 kmph; never re-charge a tripped line in high wind until patrolled.","Restore critical loads first: drinking water, hospitals, government offices, telecom.","One officer-in-charge per feeder, one supervisor and one local guide per batch.","Material reaches the work spot before the batch does – dumping is the critical path.","One crane and one pole digging machine for every two batches.","Every pole, span and DTR is photographed with a GPS stamp.","Report at fixed times in one format; chase a missing report within 30 minutes.","No cash in the field: pay only after the three-way check of work, attendance and bill.","A village is closed only when every service is verified and certified."],
+ hist: {h:["Cyclone","Damage to power network","Lesson"],r:[["Phailin, Odisha, 2013","2.11 lakh poles, 1,756 feeders","Pole stock and dumping capacity decide the pace"],["Hudhud, Visakhapatnam, 2014","~Rs 200 Cr damage; ~1,000 MW load crash","Critical loads first; underground cabling for the coastal city"],["Titli, Srikakulam, 2018","~25,000 poles; 380 feeders; 7.77 lakh services","Organise batch-wise and village-wise; verify village by village"],["Fani, Odisha, 2019","~66,000 DTRs; 72,000 km of lines","Call outside batches early; plan travel, stay and food"],["Amphan, WB / Odisha, 2020","1,627 feeders; 1.27 lakh DTRs","Spend resilience money on 11 KV and LT"]]},
+ checklist: [["Open 24×7 control room for damages and rectification reports","Alert"],["Form survey teams (AEE/AE/JE + jurisdiction lineman) for every 11 KV feeder","Alert"],["Pre-stock poles, cross arms, insulators, conductor, AB cable, fuse sets and AB switches at each sub-store","Preparedness"],["Keep 2 spare DTRs per substation (16, 25 and 63 kVA mix)","Preparedness"],["Set up sub-stores: 1 EE, 1 Accounts Officer, 1 Dy.EE, 2 AE/AEE and 3 batches with crane","Preparedness"],["Identify 30 officers (EE to JE) per circle, experienced and medically fit for cyclone works","Preparedness"],["Identify 10 accounts / admin staff (JAO/SA) per circle for food, stay and payments","Preparedness"],["Contact all registered contractors and outside-state batches; fix reporting point and local guide","Alert"],["Line-list vehicles, cranes, pole drilling machines, JCBs, hydras, tractors and lorries with hire rates fixed in advance","Preparedness"],["Arrange drones and registered operators for damage survey","Alert"],["Procure heavy-duty torch lights and power saws","Preparedness"],["Procure sufficient 11 KV and LT poles before landfall","Preparedness"],["Identify shelters, kitchens and drinking-water points; nominate a food in-charge per camp","Preparedness"],["Charge satellite phones, walkie-talkies, power banks and UPS; fuel generators","Alert"],["Print feeder and DTR sketches with GPS points for every batch","Preparedness"],["Issue contact sheet of officers, supervisors and O&M staff for each feeder","Preparedness"],["Safety briefing: permit-to-work, earthing and PPE for every batch","Alert"],["Switch off feeders certain to be affected when wind exceeds 50 kmph","Alert"],["Coordinate RDSS and substation-works contractors for batches with men and material","Alert"],["Request toll exemption and issue numbered vehicle passes for restoration vehicles","Response"],["Restore critical loads first: drinking water, hospitals, government offices","Response"],["Do not re-charge a tripped line in high wind until it is patrolled","Response"]],
+ circ: [
+  {t:"Proceedings of the CMD, APEPDCL – Preparedness and precautionary measures in view of IMD cyclone warning (Nov 2026)",p:"Target set: all cyclone defects to be restored within 2 days of landfall.",items:[["Operation & CS","24×7 control room for daily damage and rectification reports; area-wise, feeder-wise damage with men and material requirement; survey team (AEE/AE/JE + lineman) per 11 KV feeder; contact registered contractors and Telangana batches; line-list vehicles, cranes and pole drilling machines; about 100 drones with registered operators through TRANSCO."],["Purchase & MM","Procure about 20,000 nos 11 KV and LT poles before landfall; devolve unused material drawn during the last cyclone and arrive at quantities material-wise; establish sub-stores with EE and 2 supporting staff (Dy.EE, AEE) and 3 batches with crane; procure about 200 heavy-duty torch lights and 200 power saws centrally."],["HRD","Identify 20–30 engineers (EE to JE) per circle who know the area; food and accommodation through P&G and Accounts staff; nominate experienced persons to sub-stores."],["Projects","Coordinate RDSS and substation contractors for batches with men and material; report to the O&CS control room."]]},
+  {t:"HRD Memo I/1040664, dt 16-11-2026 – Cyclone preparedness: deployment of Officers / Staff",p:"Superintending Engineers to furnish the details in the prescribed proforma (template 10).",items:[["Cyclone rectification works","30 officers and staff from EE to JE per Operation Circle with cyclone / disaster experience, free of major health complications, to be used for emergency response, damage assessment and restoration."],["Food and accommodation","Coordinated by HRD and Accounts personnel of Corporate Office and Operation Circles; designated persons at Sections / Sub-divisions for food, drinking water and stay; 10 Accounts / Administrative staff (JAOs / SAs) per circle."],["Sub-store for material management","One EE, one Accounts Officer, one Dy.EE and two AEs / AEEs with stores experience – to ensure availability and timely supply, monitor stock and consumption, coordinate replenishment and resolve material issues."]]}],
+ org: [["Overall In-charge","EE / SE – mandal or division",0],["Control room","O&M duty in-charge, 2 shifts",1],["Sub-store","EE · AO · Dy.EE · 2 AE/AEE",1],["Camps & welfare","Admin + Accounts, food in-charge",1],["Feeder officer-in-charge","AE / AEE / Dy.EE – one per feeder",2],["Batch supervisor + O&M guide","one per batch",3],["Labour batch","15–30 workers, crane / PDM shared",4]],
+ substore: {h:["Post","Role"],r:[["Executive Engineer","Head of sub-store; indent approval; replenishment"],["Accounts Officer","Receipts / issues accounting; payments link"],["Deputy Executive Engineer","Stock control, daily statement (template 20)"],["2 AE / AEE","Receipt, issue, dumping to work spots"],["Storekeeper (O&M)","Counter 4 – issue against batch indent"],["3 batches with crane","Loading and unloading"]]},
+ counters: {h:["Counter","Function","Staff","Register"],r:[["1 Reception & help desk","Visitors, public complaints, arrival of outside batches","Admin, 2 per shift","Complaint register"],["2 Control room","Feeder status, walkie-talkie base, twice-daily reports","O&M duty in-charge","Daily progress (14)"],["3 Data entry","Musters, logs, slips, progress entered the same hour","Admin, 2 per shift","All registers"],["4 Material issue","Indent, issue to batch, returns","Storekeeper","Receipts (05), Issues (06)"],["5 Payments","Bills, three-way check, payment","Accounts, 2","Payment register (18)"],["6 Food & accommodation","Meal count, camp allotment, drinking water","Camp in-charge","Food register (17)"],["Entrance","CPM chart and feeder status board","Data entry","Updated after 8 PM review"]]},
+ staff: {h:["Cadre","Posted to"],r:[["O&M (LI, LM, ALM, JLM)","Control room and SS control points by shift; guide to each outside batch; mini-store keeper"],["Accounts","Payments counter: three-way check, payment and UTR entry"],["Administrative","Help desk, data entry, camp in-charge, daily public bulletin"],["Engineers","Only on the lines – never at a desk"]]},
+ dress: {h:["Who","Jacket","Helmet"],r:[["Officers-in-charge","Navy blue – 'Restoration Officer'","White"],["Supervisors","Reflective orange – 'SUPERVISOR'","Yellow"],["Labour","Reflective green with batch no.","Yellow"],["O&M guides","Distinct colour – 'GUIDE'","Department"],["Control room staff","ID card at all times","–"]]},
+ dept: {h:["Department","Duty during restoration"],r:[["Revenue (RDO, MRO, VRO)","Land access, crop compensation, shelter allotment, food through civil supplies"],["Panchayat Raj / Sachivalayam","Local guides, house and service lists, attendance witness"],["Fire & Emergency Services","Tree cutting, dewatering, rescue near live lines"],["Police","Traffic control for cranes and lorries, safety at work spots, store security"],["Rural Water Supply","Drinking water at work spots and shelters; priority restoration of water schemes"],["Health (PHC, 108)","First-aid kits, medical camp at each shelter"],["R&B / PR Engineering","Clearing roads, temporary access paths"],["Civil Supplies","Rice, dal, cooking gas for camp kitchens"],["Fisheries / farmers' associations","Access through aqua ponds and fields"],["NHAI / toll plazas","Fee exemption and priority passage for restoration vehicles"],["Service organisations, temples","Food packets, water, halls for stay"]]},
+ poles: {h:["Pole type","Working load","Unit weight","Typical use"],r:[["PSCC 8.0 m","140 / 200 / 300 kg","355 / 380 / 505 kg","LT and 11 KV lines"],["PSCC 9.1 m","280 kg","680 kg","11 KV, 6.3 KV and LT lines"],["PSCC 11 m","365 kg","1,127 kg","33 KV, long spans"],["Spun 9.5 m","300 kg","620 kg","Strengthening on 11 KV"],["Spun 11 m","350 kg","900 kg","33 KV, crossings"],["Spun 12.5 m","350 kg","1,200 kg","Road, river and canal crossings"]]},
+ prestock: {h:["Item","Suggested stock per sub-store"],r:[["PSCC poles 8 m and 9.1 m","As per vulnerability (≥ 5 % of poles in coastal belt)"],["11 KV V cross arms","100"],["11 KV pin insulators","120"],["Strut / back clamps 9 m and 8 m","150 each"],["AAAC 55 sq mm conductor","2 drums"],["LT AB cable","3 drums"],["11 KV HG fuse sets","20"],["Tilting-type AB switches","10"],["Spare DTRs (16, 25, 63 kVA)","2 per substation"]]},
+ cpm: [["A","Damage survey, sketch update","–",0,1,true],["B","Material dumping at work spots","A",1,2,true],["C","Mobilise batches, machinery, camp","A",1,1,false],["D","Tree and road clearing","A",1,1,false],["E","Erect 11 KV poles","B,C,D",3,3,true],["H","DTR structures and DTRs","B,C",3,2,false],["I","LT poles and AB cable","B,C",3,3,false],["F","String 11 KV conductor","E",6,2,true],["G","Test and charge 11 KV feeder","F",8,0.5,true],["J","Charge DTRs and LT, restore services","G,H,I",8.5,1,true],["K","Village-wise verification","J",9.5,1,true]],
+ rhythm: {h:["Time","Activity","Responsible"],r:[["5:30 AM","Breakfast, safety briefing, permit-to-work","Supervisor, O&M guide"],["6:00 AM","Batches leave with material and machinery","Officer-in-charge"],["10:00 AM","Morning progress report","Officer-in-charge"],["1:00 PM","Lunch at work spot","Food in-charge"],["4:00 PM","Afternoon report; indent for next day","Officer-in-charge"],["6:30 PM","Work stops; line made safe","Supervisor"],["8:00 PM","Review; next day's plan and machinery moves","Overall In-charge"]]},
+ bottle: {h:["Bottleneck","Correction"],r:[["Material not at work spot before batch","Dump overnight by lorry and tractor; issue within 2 hours of indent"],["Lines in paddy fields and aqua ponds","Reroute where possible; tractors; farmers' help for access"],["DTR structures fallen in numbers","Separate DTR team with hydra and MRT tester"],["Feeders with no officer or batch","Allot officer and batch before any work starts"],["Substation area without crane","Shift a crane from a feeder with float; hire more"],["Outside batches unfamiliar with network","O&M guide and printed sketch with each batch"],["Late food at work spots","Lunch packed at camp, sent by auto by 12:30 PM"],["Gaps in reporting","Fixed times, one format, 30-minute follow-up"],["Payment delays causing walk-outs","Weekly bank payment after three-way check"]]},
+ camp: {h:["Item","Norm"],r:[["Meals","3 per person per day (breakfast and dinner at camp, lunch at site)"],["Drinking water","5 L per person per day; 1 L bottle + ORS at work spot"],["Covered space","3.5 m² minimum (Sphere); plan 4.5 m² for crews"],["Toilets","1 per 20 persons, separate for women"],["Water for hygiene","15 L per person per day; store 3 days"],["Medical","First-aid kit per batch; PHC doctor visit daily"],["Night work","2 torches + 2 LED spotlights per batch; tent at each work spot"]]},
+ pay: {h:["Item","Record","Paid by","Fraud check"],r:[["Labour","Muster twice a day + GPS group photo","Bank transfer, weekly","Photo headcount = muster"],["Diesel","Numbered fuel slip","Notified bunk bills weekly","Litres ≤ hours × norm"],["Machinery","Daily log book","Bank transfer, weekly","Rates agreed in writing; GPS photo at site"],["Food","Meal count","Bank transfer, weekly","Meals ≤ attendance × 3"],["Vehicles","Trip sheet","Bank transfer, weekly","Signed by user officer"]]},
+ sh50: {h:["Space","Provision","Area (m²)"],r:[["Dormitory","42 cots, lockers, fans, mosquito proofing",189],["Officers' room","8 cots",36],["Toilets & baths","4 + 4 in two blocks",30],["Kitchen & dry store","Cooking for 50",20],["Dining / briefing hall","Seats 50; CPM board; training hall",50],["Material store","Mini-store",25],["First aid & charging","",10],["Power room","Generator, solar battery",8]]},
+ sh250: {h:["Facility","Provision for 250"],r:[["Sleeping","Two halls with cots / mats, fans, lights"],["Toilets & baths","About 13 each"],["Drinking water","RO plant, ≥ 1,250 L / day"],["Kitchen & dining","Kitchen for 250, gas"],["Power backup","Generator + rooftop solar"],["Store","Lockable store for poles and tools"],["Communication","Charging points, satellite phone"],["Parking","Cranes, PDMs, lorries"]]},
+ sdrfN: {h:["Item","Norm","Note"],r:[["Poles","Rs 5,000 per pole","Up to 11 KV and LT"],["Conductor / line","Rs 0.50 lakh per km","Bare conductor; AB cable to be confirmed"],["Distribution transformers","Rs 1.0 lakh each",""],["Record","Feeder-wise actual cost","Supports request for relaxation of norms"]]},
+ res: {h:["Measure","Where to apply"],r:[["Double-pole structure with AB switch every 10 poles","All coastal feeders; first on those that lost most poles"],["Spun / rail / joist poles and intermediate poles","Rebuilt spans"],["Plinth-mounted 3-Ph DTRs; stronger 1-Ph structures","Areas with many fallen DTR structures"],["Aerial bunched cable for 11 KV and LT","Villages close to the sea (2–3 × cost of bare conductor)"],["RCC / pre-cast pole foundations","Paddy fields and aqua bunds"],["Epoxy coating of steel","All cross arms, clamps, DTR structures"],["Underground cable within 20 km of coast","Urban areas and vital installations"],["Split long feeders","Rural feeders above ~15 km"],["GPS mapping of all assets within 60 km of coast","Every pole and DTR"],["Mobile DG sets and mobile substations","At circle level, deployable in 12–24 hours"]]},
+ tools: {h:["Tool / tackle","Per batch"],r:[["Power saw","1"],["Cross-arm fixing kit (spanners, hammer)","2 sets"],["Crow bar","2"],["Spade","4"],["Chain pulley block","1"],["Hand knife / sickle","4"],["Long-pole knife","2"],["Rope and pulley set","1"],["Earthing set and discharge rod","2"],["Torch / emergency light","2"],["First-aid kit","1"],["Rain coat, helmet, gloves, belt, gumboots","1 set per person"]]}
+};
+const PJIN=[["p91","Broken poles 9.1 m",300],["p8","Broken poles 8.0 m",200],["pl","Leaning poles",300],["k11","11 KV conductor (km)",20],["k63","6.3 KV conductor (km)",5],["klt","LT line / AB cable (km)",25],["d1","DTRs 1-Ph",40],["d25","DTRs 3-Ph 16 / 25 kVA",10],["d40","DTRs 3-Ph 40 kVA",15],["d63","DTRs 3-Ph 63 kVA",8],["d100","DTRs 3-Ph 100 kVA",2],["ds","DTR structures fallen",30],["days","Target days from landfall",7]];
+const PJNORM=[["clr","Days lost to route clearance",1.5],["np","New poles per batch per day",8],["nl","Leaned poles set right per batch per day",15],["km","Line km restrung per batch per day",1.5],["nd","DTRs per DTR team per day",4],["lab","Labour per batch",15],["bpc","Batches per crane",2],["bpp","Batches per pole digging machine",2],["bpo","Batches per officer-in-charge",3],["lorry","Lorry capacity (tonnes)",10]];
+let PJV={};
+function pjNum(id){return +($('pj_'+id).value)||0}
+function pjForm(el,arr){$(el).innerHTML=arr.map(([k,l,v])=>`<label><span>${l}</span><input type="number" min="0" step="any" id="pj_${k}" value="${v}"></label>`).join('');arr.forEach(([k])=>$('pj_'+k).addEventListener('input',pjCalc))}
+function pjCalc(){
+ const g={};[...PJIN,...PJNORM].forEach(([k])=>g[k]=pjNum(k));
+ const poles=g.p91+g.p8, km=g.k11+g.k63+g.klt, dtrs=g.d1+g.d25+g.d40+g.d63+g.d100;
+ const wd=Math.max(0.5,g.days-g.clr);
+ const bd=(g.np?poles/g.np:0)+(g.nl?g.pl/g.nl:0)+(g.km?km/g.km:0);
+ const batches=Math.ceil(bd/wd), dteams=Math.ceil(g.nd?dtrs/(g.nd*wd):0);
+ const labour=(batches+dteams)*g.lab, cranes=Math.ceil(batches/(g.bpc||1)), pdm=Math.ceil(batches/(g.bpp||1)), off=Math.ceil(batches/(g.bpo||1));
+ const persons=labour+off+batches*2; const meals=persons*3, water=persons*5;
+ const wt=(g.p91*680+g.p8*380)/1000, trips=Math.ceil(wt/(g.lorry||1));
+ const claim=poles*5000+(g.k11+g.k63+g.klt)*50000+dtrs*100000;
+ PJV={g,poles,km,dtrs,wd,batches,dteams,labour,cranes,pdm,off,persons,meals,water,wt,trips,claim};
+ const inr=n=>'Rs '+Math.round(n).toLocaleString('en-IN');
+ kpi('pjOut',[["Line batches",batches,`over ${wd} working days`,'b'],["DTR teams (with hydra)",dteams,`${dtrs} DTRs`,'p'],["Labour",labour.toLocaleString('en-IN'),`@ ${g.lab} per batch`,'g'],["Cranes / PDMs",cranes+' / '+pdm,'','o'],["Officers-in-charge",off,'feeder / batch groups','b'],["Pole weight",wt.toFixed(0)+' t',trips+' lorry trips','r'],["Meals / water per day",meals.toLocaleString('en-IN')+' / '+(water/1000).toFixed(1)+' kL',persons+' persons','g'],["SDRF indicative claim",(claim/1e7).toFixed(2)+' Cr','poles + line + DTRs','o']]);
+ $('pjOutRes').innerHTML=table(["Resource","Quantity","Basis"],[["Line batches",batches,`(${poles} poles ÷ ${g.np} + ${g.pl} leaned ÷ ${g.nl} + ${km} km ÷ ${g.km}) ÷ ${wd} days`],["DTR teams",dteams,`${dtrs} DTRs ÷ (${g.nd} × ${wd} days)`],["Labour",labour,`(batches + DTR teams) × ${g.lab}`],["Cranes",cranes,`1 per ${g.bpc} batches`],["Hydras",dteams,'1 per DTR team'],["Pole digging machines",pdm,`1 per ${g.bpp} batches`],["Officers-in-charge",off,`1 per ${g.bpo} batches`],["Supervisors + O&M guides",batches*2,'1 + 1 per batch'],["Power saws / first-aid kits",batches+dteams,'1 per batch'],["Earthing sets / torches",(batches+dteams)*2,'2 per batch'],["Safety kits and rain coats",persons,'1 per person']]);
+ $('pjOutMat').innerHTML=table(["Item","Quantity","Note"],[["PSCC poles 9.1 m",g.p91,'680 kg each'],["PSCC poles 8.0 m",g.p8,'380 kg each'],["Conductor / cable",km+' km',''],["DTRs",dtrs,`1-Ph ${g.d1} · 16/25 ${g.d25} · 40 ${g.d40} · 63 ${g.d63} · 100 ${g.d100}`],["Pole weight to move",wt.toFixed(1)+' t',`${trips} trips @ ${g.lorry} t`],["Meals per day",meals,'3 per person'],["Drinking water per day",water+' L','5 L per person'],["SDRF – poles",inr(poles*5000),'Rs 5,000 per pole'],["SDRF – line",inr(km*50000),'Rs 0.50 lakh per km'],["SDRF – DTRs",inr(dtrs*100000),'Rs 1.0 lakh each'],["SDRF – total",inr(claim),'indicative']],{rowCls:r=>r[0]==='SDRF – total'?'tot':''});
+}
+function pjGantt(){const W=760,rh=30,x0=230,sc=(W-x0-20)/11;let s=`<svg viewBox="0 0 ${W} ${PJ.cpm.length*rh+40}" style="width:100%;min-width:620px" font-family="inherit" font-size="12">`;
+ for(let d=0;d<=11;d++){s+=`<line x1="${x0+d*sc}" y1="20" x2="${x0+d*sc}" y2="${PJ.cpm.length*rh+24}" stroke="#e3e7ee"/><text x="${x0+d*sc}" y="14" text-anchor="middle" fill="#5b6577">${d}</text>`}
+ PJ.cpm.forEach((a,i)=>{const y=24+i*rh;s+=`<text x="4" y="${y+18}" fill="#0f172a"><tspan font-weight="700">${a[0]}</tspan> ${a[1]}</text><rect x="${x0+a[3]*sc}" y="${y+5}" width="${Math.max(4,a[4]*sc)}" height="18" rx="4" fill="${a[5]?'#d9467a':'#7fb2f0'}"/><text x="${x0+(a[3]+a[4])*sc+5}" y="${y+18}" fill="#5b6577">${a[4]} d</text>`});
+ s+=`</svg><div class="note"><span style="color:#d9467a">■</span> critical path &nbsp; <span style="color:#7fb2f0">■</span> has float &nbsp;· day scale from start of survey</div>`;$('pjGantt').innerHTML='<div class="tw">'+s+'</div>'}
+function pjStore(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||'null');localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+const pjViews={
+ 'pj-home'(){ $('pjPhases').innerHTML=PJ.phases.map((p,i)=>`<div class="ph" style="--c:${p[3]}"><div class="pht">${p[0]}</div><b>${p[1]}</b><span>${p[2]}</span></div>`).join('<div class="parr">›</div>');
+  kpi('pjNorms',PJ.norms); $('pjRules').innerHTML=PJ.rules.map(r=>`<li>${esc(r)}</li>`).join(''); $('pjHist').innerHTML=table(PJ.hist.h,PJ.hist.r);},
+ 'pj-prep'(){ const st=pjStore('pjChk')||{};
+  const draw=()=>{const f=$('pjPhaseF').value;const list=PJ.checklist.map((c,i)=>[i,...c]).filter(c=>!f||c[2]===f);
+   $('pjChecklist').innerHTML=list.map(([i,a,p])=>`<label class="chk"><input type="checkbox" data-i="${i}" ${st[i]?'checked':''}><span>${esc(a)}</span><em class="ptag p-${p}">${p}</em></label>`).join('');
+   const done=PJ.checklist.filter((_,i)=>st[i]).length;$('pjPrepBar').style.width=(done/PJ.checklist.length*100)+'%';$('pjPrepTxt').textContent=`${done} of ${PJ.checklist.length} actions done`;
+   $('pjChecklist').querySelectorAll('input').forEach(x=>x.onchange=()=>{st[x.dataset.i]=x.checked;pjStore('pjChk',st);draw()})};
+  $('pjPhaseF').onchange=draw;$('pjReset').onclick=()=>{Object.keys(st).forEach(k=>delete st[k]);pjStore('pjChk',st);draw()};draw();
+  $('pjCirc').innerHTML=PJ.circ.map(c=>`<div class="circ"><b>${esc(c.t)}</b><p class="note">${esc(c.p)}</p>${table(["Wing / area","Instruction"],c.items)}</div>`).join('');},
+ 'pj-org'(){ $('pjOrg').innerHTML=PJ.org.map(o=>`<div class="ob" style="margin-left:${o[2]*18}px"><b>${o[0]}</b><span>${o[1]}</span></div>`).join('');
+  $('pjSubStore').innerHTML=table(PJ.substore.h,PJ.substore.r);$('pjCounters').innerHTML=table(PJ.counters.h,PJ.counters.r);$('pjStaff').innerHTML=table(PJ.staff.h,PJ.staff.r);$('pjDress').innerHTML=table(PJ.dress.h,PJ.dress.r);$('pjDept').innerHTML=table(PJ.dept.h,PJ.dept.r);},
+ 'pj-plan'(){ if(!$('pj_p91')){pjForm('pjIn',PJIN);pjForm('pjNormIn',PJNORM);
+  $('pjCopy').onclick=async()=>{const v=PJV,g=v.g;const t=`PROJECT PUNARJYOTHI – RESOURCE PLAN\nDamage: ${v.poles} broken poles (9.1 m ${g.p91}, 8 m ${g.p8}), ${g.pl} leaning, ${v.km} km line, ${v.dtrs} DTRs, ${g.ds} DTR structures.\nTarget: ${g.days} days (${v.wd} working days).\nResources: ${v.batches} line batches + ${v.dteams} DTR teams, ${v.labour} labour, ${v.off} officers-in-charge, ${v.cranes} cranes, ${v.pdm} PDMs, ${v.dteams} hydras.\nLogistics: ${v.wt.toFixed(1)} t of poles (${v.trips} lorry trips); ${v.meals} meals and ${v.water} L water per day for ${v.persons} persons.\nSDRF indicative claim: Rs ${Math.round(v.claim).toLocaleString('en-IN')}.`;
+   try{await navigator.clipboard.writeText(t);$('pjCopyMsg').textContent='Copied.'}catch(e){$('pjCopyMsg').textContent='Copy blocked – select the tables and copy manually.'}}}
+  pjCalc();},
+ 'pj-material'(){ $('pjPoles').innerHTML=table(PJ.poles.h,PJ.poles.r);$('pjPrestock').innerHTML=table(PJ.prestock.h,PJ.prestock.r);},
+ 'pj-exec'(){ pjGantt();$('pjRhythm').innerHTML=table(PJ.rhythm.h,PJ.rhythm.r);$('pjBottle').innerHTML=table(PJ.bottle.h,PJ.bottle.r);},
+ 'pj-welfare'(){ $('pjCamp').innerHTML=table(PJ.camp.h,PJ.camp.r);$('pjPay').innerHTML=table(PJ.pay.h,PJ.pay.r);$('pjShelter50').innerHTML=table(PJ.sh50.h,PJ.sh50.r);$('pjShelter250').innerHTML=table(PJ.sh250.h,PJ.sh250.r);$('pjSdrfN').innerHTML=table(PJ.sdrfN.h,PJ.sdrfN.r);},
+ 'pj-resilience'(){ $('pjRes').innerHTML=table(PJ.res.h,PJ.res.r);$('pjTools').innerHTML=table(PJ.tools.h,PJ.tools.r);},
+ 'pj-templates'(){ const ic={"01":"🗺️","02":"⚠️","03":"📦","04":"🧮","05":"📥","06":"📤","07":"🏬","08":"🔌","09":"👷","10":"🧑‍💼","11":"📋","12":"🏗️","13":"⛽","14":"📅","15":"📈","16":"🏘️","17":"🍲","18":"💳","19":"✅","20":"🗄️"};
+  const draw=()=>{const q=$('pjTq').value.toLowerCase();$('pjTcards').innerHTML=PJ.tpls.filter(t=>!q||(t.title+t.purpose+t.cols.join(' ')).toLowerCase().includes(q)).map(t=>`<div class="tc"><div class="tci">${ic[t.key.slice(0,2)]||'📄'}</div><div class="tcb"><div class="tcn">${t.key.slice(0,2)} · ${esc(t.title)}</div><div class="note">${esc(t.purpose)}</div><details><summary>${t.cols.length} columns</summary><div class="note">${t.cols.map(esc).join(' · ')}</div></details><a class="btn sm gold" href="${PJ.tplBase}${t.file}" target="_blank" rel="noopener">⬇ .xlsx</a></div></div>`).join('')};
+  $('pjTq').oninput=draw;draw();}
+};
+Object.assign(views,pjViews);
+
+$('lb').onclick=()=>$('lb').classList.remove('on');
+const titles={};document.querySelectorAll('#nav a').forEach(a=>titles[a.dataset.v]=a.lastChild.textContent.trim());
+function show(){let v=location.hash.slice(1);if(!views[v])v=DEFAULT_VIEW;
+ document.querySelectorAll('section.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+ document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));
+ $('vt').textContent=titles[v];views[v]();$('side').classList.remove('open');window.scrollTo(0,0)}
+window.addEventListener('hashchange',show);$('menu').onclick=()=>$('side').classList.toggle('open');show();
+</script>
+</body>
+</html>
